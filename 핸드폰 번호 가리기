@@ -1,0 +1,13 @@
+function solution(phone_number) {
+    var answer = '';
+    
+    var count = phone_number.length - 4;
+    
+    var star = "*";
+    var resultStar = star.repeat(count);
+    
+    var backNumber = phone_number.substr(count, 4);
+    
+    answer = resultStar + backNumber; 
+    return answer;
+}
