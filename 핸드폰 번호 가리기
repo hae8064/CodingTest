@@ -11,3 +11,11 @@ function solution(phone_number) {
     answer = resultStar + backNumber; 
     return answer;
 }
+
+
+
+======================================다른 풀이===========
+function solution(num) {
+    const len = num.length - 4
+    return "*".repeat(len) + num.substring(len)
+}
