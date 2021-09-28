@@ -1,0 +1,41 @@
+function solution(arr) {
+    var answer = [];
+    answer = arr;
+    
+    
+    let minNum = answer[0];     //배열의 첫 번째 수
+    let index;              //배열의 인덱스 번호
+    
+        
+    if(answer.length === 1){
+        answer[0] = -1
+        return answer;
+    }
+    else{
+        for(var i = 0; i < answer.length; i++){
+            if(minNum >= answer[i]){
+                minNum = answer[i];
+                index = i;
+          }
+        }
+    }
+    answer.splice(index, 1);
+    return answer;
+
+}
+
+
+
+===========================================
+function solution(arr) {
+    var answer = [];
+    
+    if (arr.length <= 1) {
+        return [-1];
+    } else {
+        arr.splice(arr.indexOf(Math.min(arr)),1);
+        answer = arr;
+    }
+    
+    return answer;
+}
