@@ -1,0 +1,17 @@
+function solution(n) {
+    var answer = [];
+
+    let x = n.toString().split('').reverse();
+    for(var i = 0; i< x.length; i++){
+        x[i] = parseInt(x[i])
+    }
+    answer = x;
+    return answer;
+}
+
+
+==================================================
+function solution(n) {
+    var answer = [];
+    return n.toString().split('').reverse().map(o => o = parseInt(o));
+}
