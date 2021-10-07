@@ -1,0 +1,27 @@
+function solution(n) {
+    var answer = 0;
+    var result = "";
+    var result2 = "";
+    
+    for(var i = 1; i <= n; i++){
+        if(n % i == 0){
+            result += i + ' ';
+        }
+    }
+    
+    result2 = result.split(" ");
+    
+    for(var i = 0; i < result2.length - 1; i++){
+        answer += parseInt(result2[i]);
+    }
+    return answer;
+}
+
+
+
+====================================
+function solution(n) {
+    var answer = 0;
+    for(var i=1; i<=n/2; i++) if(n%i == 0) answer += i;
+    return answer+n;
+}
