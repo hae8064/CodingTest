@@ -1,0 +1,15 @@
+function solution(n) {
+    let answer = [];
+    let arr = Array.from({length: n+1}, () => true);    //0~10
+    arr.splice(0, 2, false, false);         //0,1은 false로(소수가 아니므로)
+    for(let i = 2; i <=n; i++){
+        if(arr[i]){
+            for(let j = i * i; j <= n; j +=i){
+                //j는 2의 제곱
+                arr[j] = false;
+            }
+        }
+    }
+    answer = arr.filter((v) => v === true).length;
+    return answer;
+}
