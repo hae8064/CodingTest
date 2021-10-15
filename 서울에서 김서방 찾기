@@ -1,0 +1,19 @@
+function solution(seoul) {
+    var answer = '';
+    var result;
+    for(var i = 0; i < seoul.length; i++){
+        if(seoul[i] === "Kim"){
+            result = i;
+            break;
+        }
+    }
+    answer = "김서방은 " + result + "에 있다";
+    
+    return answer;
+}
+
+====================================
+function findKim(seoul){
+  var idx = seoul.indexOf('Kim');
+  return "김서방은 " + idx + "에 있다";
+}
