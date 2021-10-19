@@ -1,0 +1,25 @@
+function solution(s) {
+    //대문자는 소문자보다 작은것으로 간주
+    var answer = '';
+    var answer2 = [];
+    for(var i = 0; i<s.length; i++){
+        answer2.push(s.charCodeAt(i));
+    }
+     answer2.sort(function (a,b){
+         //배열 내림차순 함수
+                return b-a;
+            });
+    
+    for(var j = 0; j < answer2.length; j++){
+        answer2[j] = String.fromCharCode(answer2[j]);
+    }
+    
+    answer = answer2.join("");
+
+    return answer;
+}
+
+==============================
+function solution(s) {
+    return s.split('').sort().reverse().join('');
+}
