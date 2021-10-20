@@ -1,0 +1,30 @@
+function solution(s){
+    var answer = true;
+    let nump = 0;
+    let numy = 0;
+    
+    for(var i = 0; i < s.length; i++){
+        if(s[i] == "p" || s[i] == "P"){
+            nump++;
+        }else if(s[i] == "y" || s[i] == "Y"){
+            numy++;
+        }
+    }
+    
+    if(nump == numy){
+        answer = true;
+    }
+    else if(nump == 0 && numy ==0){
+        answer =true;
+    }
+    else{
+        answer = false;
+    }
+    
+
+    return answer;
+    
+    =======================================
+    function numPY(s){
+  return s.toUpperCase().split("P").length ===  s.toUpperCase().split("Y").length;
+}
