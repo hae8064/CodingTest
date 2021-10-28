@@ -1,0 +1,32 @@
+//*은 해당점수와 바로전에 얻은점수 2배 (처음 *은 해당점수만 2배)
+//#은 해당점수 마이너스
+//# *나오면 중첩효과로 -2배 (당연한거임 생각x)
+//* * 나오면 중첩효과로 점수 4배됨 (생각안해도됨 당연한거)
+
+function solution(dartResult) {
+    var answer = 0;
+    let score = 0;
+    let cnt = [];
+    
+    for(let i = 0; i < dartResult.length; i++){
+        //점수가 주어진경우
+        if(!isNaN(dartResult[i])){
+            //i-1이 1이고 i가 숫자면 10점
+            score = Number(dartResult[i - 1]) === 1 ? 10 : Number(dartResult[i]);
+        }else if(dartResult[i] === "S"){
+            cnt.push(score);
+        }else if(dartResult[i] ==="D"){
+            cnt.push(Math.pow(score, 2));
+        }else if(dartResult[i] === "T"){
+            cnt.push(Math.pow(score, 3));
+        }else if(dartResult[i] === "*"){
+            cnt[cnt.length-2] = cnt[cnt.length - 2] * 2;
+            cnt[cnt.length-1] = cnt[cnt.length - 1] * 2;
+        }else if(dartResult[i] === "#"){
+            cnt[cnt.length - 1] = -1 * cnt[cnt.length -1];
+        }
+    }
+
+    answer = cnt.reduce((acc, cur) => acc + cur , 0);
+    return answer;
+}
