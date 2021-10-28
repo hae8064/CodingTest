@@ -1,0 +1,15 @@
+function solution(s) {
+    var answer = '';
+    
+    let num = s.length;
+    let index = parseInt(num /2);
+
+    //짝수인경우
+    if(num % 2 === 0){
+        answer = s[index-1]+s[index];
+    }
+    else{
+        answer = s[index];
+    }
+    return answer;
+}
