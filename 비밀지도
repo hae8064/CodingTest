@@ -1,0 +1,45 @@
+//#은 1 공백은 0
+//지도1과 지도2중 어느하라도 벽이면 # -> 모두 공백이면 0(0+0)
+function solution(n, arr1, arr2) {
+    var answer = [];
+    var arr1_two = [];  
+    var arr2_two = [];
+    
+    for(let i = 0; i < arr1.length; i++){
+        //2진수로 변환
+        arr1_two.push(arr1[i].toString(2));
+        arr2_two.push(arr2[i].toString(2));
+    }
+   
+    //자릿수를 맞춰줘야함 n만큼의 자릿수
+    for(let i = 0; i < n; i++){
+         arr1_two[i] = arr1_two[i].padStart(n, '0');
+         arr2_two[i] = arr2_two[i].padStart(n, '0');
+    }
+    
+    for(let i = 0; i < n; i++){
+        let result = "";        //#이나 공백 집어넣기 위한 문자
+        
+        for(let j =0; j < n; j++){
+            if(arr1_two[i][j] === "0" && arr2_two[i][j] === "0"){
+                result+=" ";
+            }else{
+                result+="#";
+                }
+        }
+        answer.push(result);
+    }
+    return answer;
+}
+
+========================================
+function solution(n, arr1, arr2) {
+  let result = arr1.map((a, i) =>
+    (a | arr2[i])	// 비밀지도는 arr1[i] or arr2[i]
+      .toString(2)	// 10진수는 2진수로
+      .padStart(n, 0)	// 맨 앞 0 제거되지 않도록
+      .replace(/0/g, " ")	// 0은 공백으로
+      .replace(/1/g, "#")	// 1은 #으로
+  );
+  return result;
+  
