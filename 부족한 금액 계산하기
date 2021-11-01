@@ -1,0 +1,19 @@
+//처음가지고 있는 금액: money 이용료: price, 이용횟수: count
+
+function solution(price, money, count) {
+    var answer = -1;
+    let result = 0;     //놀이기구 총 이용금액
+    
+    for(let i = 1; i <= count; i++){
+        result += price*i;
+    }
+    
+    answer = result - money;
+    
+    if(answer > 0){
+        return answer;
+    }
+    else{
+        return 0;
+    }
+}
