@@ -1,0 +1,14 @@
+function solution(numbers) {
+    var answer = [];
+    let sumNum = 0;         //두 수의 합
+    for(let i = 0; i < numbers.length; i++){
+       for(let j = i + 1; j < numbers.length; j++){
+           sumNum = numbers[i] + numbers[j];
+           answer.push(sumNum);
+       }
+    }
+    var set = new Set(answer);      //중복 제거
+    var set2 = [...set];
+    answer = set2.sort((a,b) => a-b);
+    return answer;
+}
