@@ -1,0 +1,14 @@
+function solution(n) {
+    var answer = 0;
+    let thr = n.toString(3);
+    let thrRev = thr.split("").reverse().join("");
+    
+    answer = Number(parseInt(thrRev, 3).toString(10));
+    return answer;
+}
+
+==========================================================
+function solution(n) {
+    let reversed_N = n.toString(3).split('').reverse().join('')
+    return parseInt(reversed_N, 3)
+}
