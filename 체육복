@@ -1,0 +1,34 @@
+//n - 결과 lost인원 수
+//테스트케이스 3개 실패 why?
+function solution(n, lost, reserve) {
+    var answer = 0;
+
+    for(let i = 0; i < lost.length; i++){
+        for(let j = 0; j < reserve.length; j++){
+            //체육복을 가져온 학생과 도난당한 학생이 같은경우
+            if(reserve[j] === lost[i]){
+                reserve.splice(j,1);
+                j--;
+                lost.splice(i,1);
+                i--;
+                if(reserve.length === 0){
+                    break;
+                }
+            }
+            else if((lost[i] === reserve[j] + 1) || (lost[i] === reserve[j] - 1)){
+                //lost배열 요소삭제
+                lost.splice(i, 1);
+                i--;
+                reserve.splice(j,1);
+                j--;
+                if(reserve.length === 0){
+                    break;
+                }
+            }
+        }
+    }
+    
+    console.log(lost.length);
+    answer = n - lost.length;
+    return answer;
+}
