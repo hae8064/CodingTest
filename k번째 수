@@ -1,0 +1,12 @@
+function solution(array, commands) {
+    var answer = [];
+    var list;
+    
+    for(var com of commands){
+        var[s,e,i] = com;
+        list = array.slice(s-1,e);
+        list.sort((a,b) => a-b);
+        answer.push(list[i-1]);
+     }
+    return answer;
+}
