@@ -1,0 +1,25 @@
+//짝지어 제거 성공 -> 1
+//실패할 경우 -> 0
+
+function solution(s)
+{
+    let answer = -1;
+    let temp = [];
+    
+    for(let i = 0; i < s.length; i++){
+        if(temp.length ===0 || temp[temp.length-1] !== s[i]){
+            temp.push(s[i]);
+        }else if(temp[temp.length-1] === s[i]){
+            temp.pop();
+        }
+    }
+    return temp.length === 0 ? 1 : 0;
+} 
+
+
+>Stack자료구조를 활용한 문제해결
+>s문자열을 차례로 배열로 만들고
+>temp 배열에 아무것도 없으면 s[i]를 넣어준다
+>temp배열에 다른문자 있을 때 -> temp 맨 마지막 문자가 s[i]와 같으면 temp마지막 문자를 pop()한다.
+-> temp 맨 마지막 문자가 s[i]와 같지않으면 그냥 push()한다.
+>배열 길이가 0이면 1, 그렇지 않으면 0 return
