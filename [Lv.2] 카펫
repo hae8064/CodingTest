@@ -1,0 +1,18 @@
+function solution(brown, yellow) {
+    let answer = [];
+    let sum = brown + yellow;
+    
+    //카펫의 최소높이는 3부터 가능
+    for(let height = 3; height <= brown; height++){
+        //임의의 높이로 나눌 때 나머지가 없는경우만 가능
+        if(sum % height === 0){
+            let width = sum / height
+            
+            //테두리를 제외한 길이 이므로 각각 -2 해준뒤 곱셈
+            if((height - 2) * (width - 2) === yellow){
+                return [width, height];
+            }
+        }
+    }
+}
+
