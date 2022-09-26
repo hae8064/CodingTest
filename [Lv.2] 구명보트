@@ -1,0 +1,10 @@
+//구명보트 최대 2명씩 -> 가장 무거운 사람 + 가장 가벼운사람으로 
+function solution(people, limit) {
+    var answer = 0;
+    people = people.sort((a,b) => b-a);
+    
+    for(var i = 0, j=people.length-1; i<=j; i++,answer++)
+        if(people[i]+people[j] <= limit) j--;
+        
+    return answer;
+}
