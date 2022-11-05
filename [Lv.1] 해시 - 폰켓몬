@@ -1,0 +1,19 @@
+//같은 종류 포켓몬은 같은 번호 가지고있음
+//N마리 포켓몬 종류번호가 담긴 배열 nums
+//N/2마리 폰켓몬 선택하는 방법 중 가장많은 종류의 폰켓몬을 선택하는 방법 폰켓몬 종류 번호 개수 return
+function solution(nums) {
+    const set = new Set(nums);
+    const numsSet = [...set];
+    const N = nums.length / 2
+    let result = 0;
+    
+    if( N === numsSet.length){
+        result = N;   
+    }else if (N < numsSet.length){
+        result = N;
+    }else if(N > numsSet.length){
+        result = numsSet.length;
+    }
+    
+    return result;
+}
