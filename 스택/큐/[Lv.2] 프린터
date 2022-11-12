@@ -1,0 +1,25 @@
+//priorites: 문서의 중요도, location: 대기목록의 어떤 위치에 있는지 대기목록의 가장 앞에 있으면 0 두번째 있으면 1
+function solution(priorities, location) {
+    let max;
+    let cnt = 0;
+    
+    while(true){
+        max = Math.max.apply(null, priorities);
+        let n = priorities.shift();         //맨 앞의 요소를 뺴낸다.
+        
+        if(n === max){
+            cnt++;          //pop하므로  cnt 1 증가
+            if(location === 0){     //만약 location이 0이되면
+                return cnt;
+            }
+        }else{
+            priorities.push(n);         //배열 맨 끝에 꺼낸 요소를 추가.
+        }
+        location--;
+        
+        if(location === -1){
+            //만약 -1이 되어버리면 다시 배열의 맨끝으로 보낸다.
+            location = priorities.length - 1;
+        }
+    }
+}
