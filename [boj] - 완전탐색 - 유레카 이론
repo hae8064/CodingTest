@@ -1,0 +1,38 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './10448.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+//Tn = n(n+1) / 2
+
+//K가 1000까지 이므로
+
+//삼각수 전체 배열 넣어놓기
+let arr = [];
+
+let nums = inp.slice(1);
+
+//1000이라는 숫자가 최대 i가 44까지 들어감 삼각수의 합 구하는 for문
+for (let i = 1; i < 45; i++) {
+  arr.push((i * (i + 1)) / 2);
+}
+
+let result = 0;
+
+for (num of nums) {
+  result = 0;
+  for (first of arr) {
+    for (second of arr) {
+      for (third of arr) {
+        if (first + second + third === +num) {
+          result = 1;
+        }
+      }
+    }
+  }
+  console.log(result);
+}
