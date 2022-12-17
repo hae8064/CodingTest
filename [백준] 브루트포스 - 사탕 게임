@@ -1,0 +1,80 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './3085.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+//result = 1로 두고 반복문을 통해 비교하면서 같은 문자가 여러개 나오면 =>
+//배열에 값을 넣은 후, 가로를 한번씩 변경 (0,1 1,2 이런식으로) 이 때, 가로에서 엮인 개수, 세로에서 엮인 개수 최댓값을 result에 넣기
+//세로를 한번씩 변경해서 가로에서 엮인 개수 세로에서 엮인 개수 result에 값 초기화
+// 만약 result에 값이 N과 같다면 return;
+const n = +inp[0];
+const candy = inp.slice(1).map((v) => v.split(''));
+
+function swap(i, j, k) {
+  const coord = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+  ];
+  const here = candy[i][j];
+  if (
+    candy[i + coord[k][0]] &&
+    candy[i + coord[k][0]][j + coord[k][1]] &&
+    here !== candy[i + coord[k][0]][j + coord[k][1]]
+  ) {
+    candy[i][j] = candy[i + coord[k][0]][j + coord[k][1]];
+    candy[i + coord[k][0]][j + coord[k][1]] = here;
+    return true;
+  } else return false;
+}
+
+function search() {
+  for (let l = 0; l < 2; l++) {
+    for (let x = 0; x < n; x++) {
+      let count = 0;
+      let color = curCandy(x, 0, l);
+      for (let y = 0; y < n; y++) {
+        if (curCandy(x, y, l) === color) {
+          count++;
+          if (count > maxCount) {
+            maxCount = count;
+          }
+        } else {
+          color = curCandy(x, y, l);
+          count = 1;
+        }
+      }
+    }
+  }
+}
+
+function curCandy(x, y, l) {
+  if (l === 0) return candy[x][y];
+  else return candy[y][x];
+}
+
+let maxCount = 0;
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    for (let k = 0; k < 4; k++) {
+      if (swap(i, j, k)) {
+        search();
+        swap(i, j, k);
+      }
+    }
+  }
+}
+
+console.log(maxCount);
+
+
+//-------------------------
+swap은 두 사탕의 위치를 바꾸는 함수이며, 선택한 사탕의 위치에서 상하좌우 중 하나를 고르는데, 이 때 해당 방향에 사탕이 존재하지 않거나, 같은 색의 사탕일 경우에는 
+위치를 바꾸지 않는다. search는 사탕 전체에서 같은 색이 연속인 경우를 찾으며, 길이가 maxCount보다 길 경우 maxCount를 갱신하는 함수이다.
+curCandy는 가로줄/세로줄을 모두 탐색해야 하는데, 전체 반복문 코드를 중복하지 않게 하려고 작성하였다.
+
