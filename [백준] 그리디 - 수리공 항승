@@ -1,0 +1,63 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './1449.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+//물 새는 곳은 제일 왼쪽에서 정수만큼 떨어진 거리 물 샘
+//테이프 이용해서 물 막음 좌우 0.5 만큼 간격을 줘야 물이 안샌다.
+//테이프 겹쳐서 붙이기 가능
+
+const water = Number(inp[0].split(' ')[0]);
+const tapeLength = Number(inp[0].split(' ')[1]);
+const waterLocation = inp[1].split(' ');
+let tapeCount = 1;
+
+waterLocation.sort((a, b) => a - b);
+let left = +waterLocation[0] - 0.5;
+
+for (let i = 0; i < waterLocation.length; i++) {
+  if (left + tapeLength < +waterLocation[i]) {
+    tapeCount++;
+    left = +waterLocation[i] - 0.5;
+  }
+}
+
+console.log(tapeCount);
+
+// for (let i = 0; i < water; i++) {
+//   //   console.log(i);
+
+//   if (tapeLength > 1) {
+//     if (+waterLocation[i] > +waterLocation[i + 1]) {
+//       if (+waterLocation[i] <= +waterLocation[i + 1] + tapeLength) {
+//         tapeCount++;
+//         i = i + tapeLength - 1;
+//         continue;
+//       } else if (waterLocation[i + 1] === undefined) {
+//         tapeCount++;
+//       } else {
+//         tapeCount++;
+//         continue;
+//       }
+//     } else {
+//       if (+waterLocation[i] >= +waterLocation[i + 1] - tapeLength) {
+//         tapeCount++;
+//         i = i + tapeLength - 1;
+//         continue;
+//       } else if (waterLocation[i + 1] === undefined) {
+//         tapeCount++;
+//       } else {
+//         tapeCount++;
+//         continue;
+//       }
+//     }
+//   } else {
+//     tapeCount = water;
+//   }
+// }
+
+// console.log(tapeCount);
