@@ -1,0 +1,39 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './11724.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+const [n, m] = inp[0].split(' ').map(Number);
+const graph = Array.from(Array(n), () => new Array(n).fill(0));
+const chk = new Array(n).fill(0);
+let cnt = 0;
+
+for (let i = 1; i <= m; i++) {
+  const [u, v] = inp[i].split(' ').map(Number);
+  graph[u - 1][v - 1] = 1;
+  graph[v - 1][u - 1] = 1;
+}
+
+const dfs = (node) => {
+  for (let i = 0; i < n; i++) {
+    if (graph[node][i] && !chk[i]) {
+      chk[i] = 1;
+      dfs(i);
+    }
+  }
+};
+
+for (let i = 0; i < n; i++) {
+  if (!chk[i]) {
+    cnt++;
+    chk[i] = 1;
+    dfs(i);
+  }
+}
+
+console.log(cnt);
+// console.log(graph);
