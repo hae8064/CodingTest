@@ -1,0 +1,53 @@
+const fs = require("fs");
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./2178.txt";
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, "")
+  .trim()
+  .split("\n");
+
+const [n, m] = inp[0].split(" ").map(Number);
+//미로 배열
+const adjM = [];
+
+for (let i = 1; i <= n; i++) {
+  adjM.push(inp[i].split("").map(Number));
+}
+
+//방문했는지 check 배열
+const check = Array.from({ length: n }, () => Array(m).fill(0));
+
+const bfs = (row, col) => {
+  //현재 위치에서 동서남북 조회를 위한 dx, dy배열
+  const dx = [-1, 0, 1, 0];
+  const dy = [0, 1, 0, -1];
+
+  //2차원 배열에 값이 들어가는 queue
+  const queue = [];
+  queue.push([row, col]);
+
+  check[row][col] = 1;
+  while (queue.length) {
+    //큐는 FIFO이므로, 맨 앞부터 꺼낸다
+    const [x, y] = queue.shift();
+    for (let i = 0; i < 4; i++) {
+      // nx, ny는 이동 가능성이 있는 좌표..
+      const [nx, ny] = [x + dx[i], y + dy[i]];
+
+      //미로를 벗어나는 좌표는 제외한다.
+      if (nx < 0 || ny < 0 || nx >= n || ny >= m) {
+        continue;
+      }
+      //미로에 값이 1이고, 방문하지 않았다면 방문한다.
+      if (adjM[nx][ny] && !check[nx][ny]) {
+        //(x,y)의 값이 (x,y)까지 최단경로에 해당한다.
+        check[nx][ny] = check[x][y] + 1;
+        //BFS로 현재 위치에서 갈 수 있는 좌표를 모두 큐에 넣는다.
+        queue.push([nx, ny]);
+      }
+    }
+  }
+};
+bfs(0, 0);
+console.log(check[n - 1][m - 1]);
