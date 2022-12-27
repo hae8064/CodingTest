@@ -1,0 +1,47 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './1987.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+const [r, c] = inp[0].split(' ').map(Number);
+
+//체크 배열 넣어놓기
+const check = new Array(26).fill(false);
+const graph = Array.from(Array(r), () => new Array(c).fill(0));
+
+for (let i = 0; i < r; i++) {
+  for (let j = 0; j < c; j++) {
+    graph[i][j] = inp[i + 1].split('')[j];
+  }
+}
+let answer = 0;
+const dx = [0, 0, 1, -1];
+const dy = [1, -1, 0, 0];
+
+// const dx = [-1, 0, 1, 0];
+// const dy = [0, 1, 0, -1];
+
+const dfs = (x, y, cnt) => {
+  answer = Math.max(answer, cnt);
+
+  for (let i = 0; i < 4; i++) {
+    let nx = x + dx[i];
+    let ny = y + dy[i];
+
+    if (nx >= 0 && ny >= 0 && nx < r && ny < c) {
+      if (check[graph[nx][ny].charCodeAt() - 65] === false) {
+        check[graph[nx][ny].charCodeAt() - 65] = true;
+        dfs(nx, ny, cnt + 1);
+        check[graph[nx][ny].charCodeAt() - 65] = false;
+      }
+    }
+  }
+};
+
+check[graph[0][0].charCodeAt() - 65] = true;
+dfs(0, 0, 1);
+console.log(answer);
