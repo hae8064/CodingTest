@@ -1,0 +1,46 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './1743.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+const [N, M, K] = inp[0].split(' ').map(Number);
+const graph = Array.from(Array(N), () => new Array(M).fill(0));
+const check = Array.from(Array(N), () => new Array(M).fill(0));
+
+for (let i = 1; i <= K; i++) {
+  let [l, r] = inp[i].split(' ').map(Number);
+  graph[l - 1][r - 1] = 1;
+}
+
+let dfsCount = 0;
+
+const dfs = (row, col) => {
+  const dx = [-1, 0, 1, 0];
+  const dy = [0, -1, 0, 1];
+
+  if (row >= 0 && col >= 0 && row < N && col < M && graph[row][col] === 1) {
+    graph[row][col] = 0;
+    // check[row][col] = 1;
+    dfsCount += 1;
+    for (let i = 0; i < 4; i++) {
+      dfs(row + dx[i], col + dy[i]);
+    }
+  }
+};
+
+let trashCnt = [];
+
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < M; j++) {
+    if (graph[i][j] === 1) {
+      dfs(i, j);
+      trashCnt.push(dfsCount);
+      dfsCount = 0;
+    }
+  }
+}
+console.log(Math.max(...trashCnt));
