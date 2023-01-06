@@ -1,0 +1,37 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+//전체 카드 개수
+const totalCard = +inp[0];
+const cardArr = inp[1].split(' ').map(Number);
+
+//초이스 된 카드 개수
+const choiceCard = +inp[2];
+const choiceArr = inp[3].split(' ').map(Number);
+
+let resultArr = Array.from(new Array(choiceCard).fill(0));
+let cardObj = {};
+let result = [];
+
+for (let i = 0; i < cardArr.length; i++) {
+  if (cardArr[i] in cardObj) {
+    cardObj[cardArr[i]] += 1;
+  } else {
+    cardObj[cardArr[i]] = 1;
+  }
+}
+
+for (let i = 0; i < choiceArr.length; i++) {
+  if (choiceArr[i] in cardObj) {
+    result.push(cardObj[choiceArr[i]]);
+  } else {
+    result.push(0);
+  }
+}
+console.log(result.join(' '));
