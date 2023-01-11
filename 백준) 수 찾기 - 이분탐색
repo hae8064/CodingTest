@@ -1,0 +1,40 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+const A = inp[1]
+  .split(' ')
+  .map((i) => Number(i))
+  .sort((a, b) => a - b);
+
+const M = inp[3].split(' ').map((i) => Number(i));
+
+let answer = [];
+
+for (let i = 0; i < M.length; i++) {
+  let start = 0;
+  let last = A.length;
+  let result = 0;
+  let target = M[i];
+
+  while (start <= last) {
+    let mid = parseInt((start + last) / 2);
+
+    if (target === A[mid]) {
+      result = 1;
+      break;
+    } else if (target < A[mid]) {
+      last = mid - 1;
+    } else {
+      start = mid + 1;
+    }
+  }
+  answer.push(result);
+}
+
+console.log(answer.join('\n'));
