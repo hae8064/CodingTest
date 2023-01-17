@@ -1,0 +1,36 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+//주어진 리스트 정렬
+// 중복 제거 (정렬을 하고나면 같은 수 끼리 모이는 성질.. 자신의 앞에 원소와
+//   자신의 값이 다른 원소만 살린다.)
+//  새로운 배열을 만든 후 살아남은 원소만 뒤에 삽입하는 방법
+//
+
+const arr = inp[1]
+  .split(' ')
+  .map((i) => Number(i))
+  .sort((a, b) => a - b);
+const originArr = inp[1].split(' ');
+
+const set = new Set(arr);
+const uniqueArr = [...set];
+const arr2 = {};
+let result = [];
+
+for (let i = 0; i < uniqueArr.length; i++) {
+  arr2[uniqueArr[i]] = i;
+}
+
+for (let i = 0; i < originArr.length; i++) {
+  if (originArr[i] in arr2) {
+    result.push(arr2[originArr[i]]);
+  }
+}
+console.log(result.join(' '));
