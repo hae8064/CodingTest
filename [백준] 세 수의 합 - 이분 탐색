@@ -1,0 +1,47 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
+let [n, ...arr] = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n')
+  .map(Number);
+
+let two = [];
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    two.push(arr[i] + arr[j]);
+  }
+}
+
+two.sort((a, b) => a - b);
+
+const binarySearch = (target) => {
+  let st = 0;
+  let end = two.length - 1;
+  while (st <= end) {
+    let mid = Math.floor((st + end) / 2);
+
+    if (target < two[mid]) {
+      end = mid - 1;
+    } else if (target > two[mid]) {
+      st = mid + 1;
+    } else {
+      return mid;
+    }
+  }
+  return -1;
+};
+
+let result = [];
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    let find = binarySearch(arr[i] - arr[j]);
+    if (find >= 0) result.push(arr[i]);
+  }
+}
+
+console.log(Math.max(...result));
