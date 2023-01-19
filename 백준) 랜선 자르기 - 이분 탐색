@@ -1,0 +1,40 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+const [K, N] = inp[0].split(' ').map(Number);
+let arr = [];
+
+for (let i = 1; i <= K; i++) {
+  arr.push(+inp[i]);
+}
+
+arr.sort((a, b) => a - b);
+const target = N;
+
+let left = 0;
+let right = arr[arr.length - 1];
+
+let result = Number.MIN_SAFE_INTEGER;
+
+while (left <= right) {
+  let mid = Math.floor((left + right) / 2);
+
+  let lineNum = arr.reduce((acc, cur) => acc + Math.floor(cur / mid), 0);
+  // mid 값에 따라 구해지는 랜선의 갯수
+
+  if (lineNum >= target) {
+    //구해지는 랜선 개수가 target보다 같거나 많은 경우
+    if (mid > result) result = mid;
+    left = mid + 1;
+  } else {
+    right = mid - 1;
+  }
+}
+
+console.log(result);
