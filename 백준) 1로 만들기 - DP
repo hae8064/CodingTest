@@ -1,0 +1,28 @@
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
+let inp = fs
+  .readFileSync(filePath)
+  .toString()
+  .replace(/\r/g, '')
+  .trim()
+  .split('\n');
+
+const N = +inp[0];
+let d = new Array(N + 1).fill(0);
+
+for (let i = 2; i <= N; i++) {
+  //1을 뺐을 때 1이되는 경우
+  d[i] = d[i - 1] + 1;
+
+  //2로 나누어떨어질때
+  if (i % 2 === 0) {
+    d[i] = Math.min(d[i], d[i / 2] + 1);
+  }
+
+  //3으로 나누어 떨어질 때
+  if (i % 3 === 0) {
+    d[i] = Math.min(d[i], d[i / 3] + 1);
+  }
+}
+
+console.log(d[N]);
