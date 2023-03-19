@@ -1,0 +1,12 @@
+function solution(str) {
+  let arr = [];
+  for (let i = 0; i < str.length; i++) {
+    if (!isNaN(str[i])) {
+      arr.push(str[i]);
+    }
+  }
+  return parseInt(arr.join(''));
+}
+
+let str = 'g0en2T0s8eSoft';
+console.log(solution(str));
