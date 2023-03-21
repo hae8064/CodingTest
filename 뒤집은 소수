@@ -1,0 +1,30 @@
+//소수판단시 제곱근까지만 돌려도 되지만, 시간복잡도에서 큰 차이 없어서 num / 2로 나눈 값까지 계산..
+// reverse내장함수로 뒤집을 수 있지만, 연습을 위해 작성
+
+function isPrime(num) {
+  if (num === 1) return false;
+  for (let i = 2; i <= parseInt(num / 2); i++) {
+    if (num % i === 0) return false;
+  }
+  return true;
+}
+
+function solution(arr) {
+  let answer = [];
+
+  for (let x of arr) {
+    let res = 0;
+    while (x) {
+      let t = x % 10;
+      res = res * 10 + t;
+      x = parseInt(x / 10);
+    }
+    if (isPrime(res)) answer.push(res);
+  }
+
+  return answer;
+}
+
+let arr = [32, 55, 62, 20, 250, 370, 200, 30, 100];
+console.log(solution(arr));
+
