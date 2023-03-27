@@ -1,0 +1,19 @@
+function solution(k, arr) {
+  let answer,
+    sum = 0;
+  let lt = 0;
+  let current = [];
+  for (let rt = 0; rt < arr.length; rt++) {
+    sum += arr[rt];
+    if (rt - lt === k - 1) {
+      current.push(sum);
+      sum -= arr[lt];
+      lt++;
+    }
+  }
+  answer = Math.max(...current);
+  return answer;
+}
+
+let a = [12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
+console.log(solution(3, a));
