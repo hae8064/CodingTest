@@ -1,0 +1,7 @@
+function solution(my_string) {
+    const nums = my_string.match(/[0-9]+/g);
+    return nums?nums.map(num =>Number(num)).reduce((a,c)=>a+c):0;
+}
+
+//문자가 아닌 숫자를 모두 선택하는 정규식이 있다는 점.
+// -> /[0-9]+/g 이런식으로 사용하면 정규식 / 사이에 모든 숫자를 매칭하는 [0-9]에 모든 패턴에 대한 전체 검색 g를 붙인다
