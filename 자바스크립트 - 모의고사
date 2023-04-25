@@ -1,0 +1,21 @@
+function solution(answers) {
+    var answer = new Array();
+    var supo1 = [1, 2, 3, 4, 5];
+    var supo2 = [2, 1, 2, 3, 2, 4, 2, 5];
+    var supo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+    
+    var cnt1 = 0, cnt2 = 0, cnt3 = 0;
+    for(var i = 0; i< answers.length; i++) {
+        if(answers[i] == supo1[i % supo1.length]) cnt1++;
+        if(answers[i] == supo2[i % supo2.length]) cnt2++;
+        if(answers[i] == supo3[i % supo3.length]) cnt3++;
+    }
+    
+    var max = Math.max(cnt1, cnt2, cnt3);
+    
+    if(max == cnt1) answer.push(1);
+    if(max == cnt2) answer.push(2);
+    if(max == cnt3) answer.push(3);
+    
+    return answer;
+}
