@@ -1,0 +1,38 @@
+function solution(n, paths, gates, summits) {
+  const isSummit = new Set(summits);
+
+  const graph = Array.from({ length: n + 1 }, () => []);
+  for (const [a, b, c] of paths) {
+    graph[a].push([b, c]);
+    graph[b].push([a, c]);
+  }
+
+  for (const gate of gates) {
+    queue.add([gate, 0]);
+    visited[gate] = 0;
+  }
+
+  while (queue.size()) {
+    const [node, intensity] = queue.poll();
+
+    if (isSummit.has(node) || visited[node] < intensity) {
+      continue;
+    }
+
+    for (const [nextNode, weight] of graph[node]) {
+      const newIntensity = Math.max(intensity, weight);
+      if (newIntensity < visited[nextNode]) {
+        visited[nextNode] = newIntensity;
+        queue.add([nextNode, newIntensity]);
+      }
+    }
+  }
+
+  let answer = [0, Infinity];
+  summits.sort((a, b) => a - b);
+  for (const summit of summits) {
+    if (visited[summit] < answer[1]) answer = [summit, visited[summit]];
+  }
+
+  return answer;
+}
